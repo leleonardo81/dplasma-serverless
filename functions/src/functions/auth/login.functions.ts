@@ -2,9 +2,11 @@ import * as functions from "firebase-functions";
 import { defaultRegion, errorResponse, successResponse } from "../../helpers";
 import { AppRequest } from "../../interfaces/Request";
 import apiAuth from "../../middleware/apiAuth";
+import cors from "../../middleware/cors";
 // import compose from "../../middleware/composeMiddleware";
 
 export const login = async (req: AppRequest, res: functions.Response<any>) => {
+  res.set("Access-Control-Allow-Origin", "*");
   try {
     const { user } = req;
     return successResponse(req, res, { user });
@@ -15,5 +17,5 @@ export const login = async (req: AppRequest, res: functions.Response<any>) => {
 }
 
 export default functions.region(defaultRegion).https.onRequest(
-  apiAuth(login)
+  cors(apiAuth(login))
 );

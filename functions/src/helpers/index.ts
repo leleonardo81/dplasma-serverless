@@ -20,3 +20,6 @@ export const errorResponse = (
 
 export const defaultRegion = "asia-southeast2";
 
+// import * as corsModule from 'cors';
+// export const cors = corsModule({origin: true});
+

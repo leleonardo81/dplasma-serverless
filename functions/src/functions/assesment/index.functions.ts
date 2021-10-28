@@ -1,10 +1,9 @@
 import * as functions from "firebase-functions";
 import { successResponse, errorResponse, defaultRegion } from "../../helpers";
 import { AppRequest } from "../../interfaces/Request";
-import * as cors from 'cors';
-const corsHandler = cors({origin: true});
+import cors from "../../middleware/cors";
 
-export const assesment = async (req: AppRequest, res: functions.Response<any>) => corsHandler(req, res, ()=>{
+export const assesment = async (req: AppRequest, res: functions.Response<any>) => {
   const {
     negative_covid,
     is_covid_survivor,
@@ -36,6 +35,6 @@ export const assesment = async (req: AppRequest, res: functions.Response<any>) =
     console.log(error);
     return errorResponse(req, res, "Server Error");
   }
-})
+}
 
-export default functions.region(defaultRegion).https.onRequest(assesment);
+export default functions.region(defaultRegion).https.onRequest(cors(assesment));

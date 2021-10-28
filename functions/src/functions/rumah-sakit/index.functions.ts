@@ -1,6 +1,7 @@
 import * as functions from "firebase-functions";
 import { successResponse, errorResponse, defaultRegion } from "../../helpers";
 import { AppRequest } from "../../interfaces/Request";
+import cors from "../../middleware/cors";
 import Hospital from "../../models/hospital";
 
 export const listRS = async (req: AppRequest, res: functions.Response<any>) => {
@@ -42,4 +43,4 @@ export const hospitalController = async (req: AppRequest, res: functions.Respons
   }
 }
 
-export default functions.region(defaultRegion).https.onRequest(hospitalController);
+export default functions.region(defaultRegion).https.onRequest(cors(hospitalController));

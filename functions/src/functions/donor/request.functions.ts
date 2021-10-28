@@ -3,6 +3,7 @@ import { successResponse, errorResponse, defaultRegion } from "../../helpers";
 import { AppRequest } from "../../interfaces/Request";
 import DonorRequest from "../../models/donor-request";
 import apiAuth from "../../middleware/apiAuth";
+import cors from "../../middleware/cors";
 
 export const postDonorRequest = async (req: AppRequest, res: functions.Response<any>) => {
   try {
@@ -50,5 +51,5 @@ export const donorRequestController = async (req: AppRequest, res: functions.Res
 }
 
 export default functions.region(defaultRegion).https.onRequest(
-  apiAuth(donorRequestController)
+  cors(apiAuth(donorRequestController))
 );
