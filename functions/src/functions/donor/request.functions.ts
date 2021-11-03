@@ -39,7 +39,7 @@ export const getDonorRequest = async (req: AppRequest, res: functions.Response<a
 }
 
 export const getDetailDonorRequest = async (req: AppRequest, res: functions.Response<any>) => {
-  const id: string = req.params[0].substr(1);
+  const id: string = req.params[0];
   try {
     const donorRequest = await DonorRequest.findById(id);
     const queryUser = await User.find({ uid: donorRequest.uid });
@@ -49,7 +49,8 @@ export const getDetailDonorRequest = async (req: AppRequest, res: functions.Resp
     delete donorRequest.rsid;
     successResponse(req, res, {...donorRequest, hospital, user});
   } catch (error) {
-    return errorResponse(req, res, "cannot Find");
+    console.error(error)
+    return errorResponse(req, res, "cannot Find", 404);
   }
 }
 
