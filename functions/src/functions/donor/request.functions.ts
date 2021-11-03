@@ -4,6 +4,8 @@ import { AppRequest } from "../../interfaces/Request";
 import DonorRequest from "../../models/donor-request";
 import apiAuth from "../../middleware/apiAuth";
 import cors from "../../middleware/cors";
+import Hospital from "../../models/hospital";
+import User from "../../models/user";
 
 export const postDonorRequest = async (req: AppRequest, res: functions.Response<any>) => {
   try {
@@ -36,12 +38,29 @@ export const getDonorRequest = async (req: AppRequest, res: functions.Response<a
   }
 }
 
+export const getDetailDonorRequest = async (req: AppRequest, res: functions.Response<any>) => {
+  const id: string = req.params[0].substr(1);
+  try {
+    const donorRequest = await DonorRequest.findById(id);
+    const queryUser = await User.find({ uid: donorRequest.uid });
+    const user = queryUser.docs[0]?.data();
+    delete donorRequest.uid;
+    const hospital = await Hospital.findById(donorRequest.rsid);
+    delete donorRequest.rsid;
+    successResponse(req, res, {...donorRequest, hospital, user});
+  } catch (error) {
+    return errorResponse(req, res, "cannot Find");
+  }
+}
+
 export const donorRequestController = async (req: AppRequest, res: functions.Response<any>) => {
+  const id: string = req.params[0].substr(1);
   switch (req.method) {
     case 'POST':
-      postDonorRequest(req, res);
+      apiAuth(postDonorRequest)(req, res);
       break;
     case 'GET':
+      if (id) return getDetailDonorRequest(req, res);
       getDonorRequest(req, res);
       break;
     default:
@@ -51,5 +70,5 @@ export const donorRequestController = async (req: AppRequest, res: functions.Res
 }
 
 export default functions.region(defaultRegion).https.onRequest(
-  cors(apiAuth(donorRequestController))
+  cors(donorRequestController)
 );

@@ -24,6 +24,11 @@ class Hospital implements Model {
       ...rs.data()
     }));
   }
+
+  async findById(rsid: string): Promise<any> {
+    const res: any = await (await firestore().doc(`hospital/${rsid}`).get()).data();
+    return res;
+  }
   
 }
 

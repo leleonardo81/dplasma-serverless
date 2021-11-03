@@ -1,5 +1,4 @@
 import { firestore } from "firebase-admin";
-
 interface DonorRequest {
   uid: string;
   rsid: string;
@@ -37,6 +36,11 @@ class DonorRequest implements Model {
       id: dr.id,
       ...dr.data()
     }))
+  }
+
+  async findById(id: string): Promise<any> {
+    const res: any = await (await firestore().doc(`donor-request/${id}`).get()).data();
+    return res;
   }
 }
 
