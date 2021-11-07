@@ -21,7 +21,7 @@ export const createRS = async (req: AppRequest, res: functions.Response<any>) =>
   try {
     const { body } = req;
     const hospital = await Hospital.create(body);
-    console.log(await hospital.get());
+    await hospital.get();
     return successResponse(req, res, hospital);
   } catch (error) {
     console.log(error);

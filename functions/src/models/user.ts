@@ -22,6 +22,12 @@ class User implements Model {
     })
     return query.get();
   }
+
+  async update(uid:string, {name, phoneNumber}: {name:string, phoneNumber: string}): Promise<firestore.WriteResult> {
+    const query = await this.find({ uid });
+    const userId = query.docs[0]?.id;
+    return await firestore().doc(`user/${userId}`).update({name, phoneNumber});
+  }
 }
 
 export default new User;
