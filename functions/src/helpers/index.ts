@@ -18,7 +18,7 @@ export const errorResponse = (
   success: false,
 });
 
-export const defaultRegion = "asia-southeast2";
+export const defaultRegion = "us-east4";
 
 // import * as corsModule from 'cors';
 // export const cors = corsModule({origin: true});

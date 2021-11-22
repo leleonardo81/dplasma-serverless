@@ -66,4 +66,4 @@ node_modules/
 # dotenv environment variables file
 .env
 
-*/ta-leonardo-firebase-adminsdk-*.json
+*/*-firebase-adminsdk-*.json

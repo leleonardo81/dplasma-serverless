@@ -9,7 +9,7 @@ import { exportFunctions } from 'better-firebase-functions';
 //   functions.logger.info("Hello logs!", {structuredData: true});
 //   response.send("Hello from Firebase!");
 // });
-var serviceAccount = require("../ta-leonardo-firebase-adminsdk-2tv6v-77c46a1e71.json");
+var serviceAccount = require("../new-ta-leonardo-firebase-adminsdk-i9i1n-505d834529.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
