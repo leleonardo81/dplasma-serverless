@@ -20,7 +20,8 @@ export const listRS = async (req: AppRequest, res: functions.Response<any>) => {
 export const createRS = async (req: AppRequest, res: functions.Response<any>) => {
   try {
     const { body } = req;
-    const hospital = await Hospital.create(body);
+    const data = {...body, address: JSON.parse(body.address)}
+    const hospital = await Hospital.create(data);
     await hospital.get();
     return successResponse(req, res, hospital);
   } catch (error) {
