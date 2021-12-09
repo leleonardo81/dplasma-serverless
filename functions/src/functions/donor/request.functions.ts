@@ -31,7 +31,7 @@ export const getDonorRequest = async (req: AppRequest, res: functions.Response<a
     if (lng) query.lng = lng;
     const donorRequest = await DonorRequest.find(query, {limit, offset: (page-1)*limit});
     console.log(donorRequest)
-    successResponse(req, res, donorRequest);
+    successResponse(req, res, {rows: donorRequest, page });
   } catch (error) {
     console.log(error);
     return errorResponse(req, res, "Server Error");

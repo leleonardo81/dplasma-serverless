@@ -8,7 +8,6 @@ const apiAuth = (next: Function) => async (req: AppRequest, res: functions.Respo
   if (!(req.headers && req.headers.authorization)) {
     return errorResponse(req, res, 'Token is not provided', 401);
   }
-  console.log('apiAuth')
   const token = req.headers.authorization;
   try {
     const authResp = await auth().verifyIdToken(token);

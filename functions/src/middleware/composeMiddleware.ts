@@ -3,8 +3,6 @@ const compose = (...middlewares: Function[]): Function => {
   middlewares.forEach(middleware=>{
     result = (next: any) => (req: any, res: any) => middleware(req, res, result(next));
   })
-  console.log(middlewares);
-  console.log(result);
   return result;
 }
 
